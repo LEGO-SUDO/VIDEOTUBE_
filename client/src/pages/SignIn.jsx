@@ -6,6 +6,7 @@ import { loginFailure, loginStart, loginSuccess } from '../redux/userSlice'
 import { auth, provider } from '../firebase'
 import { signInWithPopup } from 'firebase/auth'
 import { useNavigate } from 'react-router-dom'
+import { useEffect } from 'react'
 
 const Container = styled.div`
   display: flex;
@@ -88,6 +89,12 @@ const SignIn = () => {
     }
   }
 
+  const handleSignup = async (e) => {
+    const res = await axios.post('/auth/signup', { name, email, password })
+    dispatch(loginSuccess(res.data))
+    navigate('/')
+  }
+
   const signInWithGoogle = async () => {
     signInWithPopup(auth, provider)
       .then((result) => {
@@ -106,7 +113,6 @@ const SignIn = () => {
         dispatch(loginFailure())
       })
   }
-
   return (
     <Container>
       <Wrapper>
@@ -140,7 +146,7 @@ const SignIn = () => {
           placeholder='password'
           onChange={(e) => setPassword(e.target.value)}
         />
-        <Button>Sign up</Button>
+        <Button onClick={handleSignup}>Sign up</Button>
       </Wrapper>
       <More>
         English(USA)
