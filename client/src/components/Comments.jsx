@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Comment from './Comment'
-import CommentUpload from './CommentUpload'
+
 import { useSelector } from 'react-redux'
 import SendSharpIcon from '@mui/icons-material/SendSharp'
 
