@@ -7,7 +7,7 @@ export const addComment = async (req, res, next) => {
 
   try {
     const savedComment = await newComment.save()
-    res.status(200).json(newComment)
+    res.status(200).json(savedComment)
   } catch (err) {
     next(err)
   }

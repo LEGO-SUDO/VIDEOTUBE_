@@ -2,7 +2,9 @@ import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
 import Comment from './Comment'
+import CommentUpload from './CommentUpload'
 import { useSelector } from 'react-redux'
+import SendSharpIcon from '@mui/icons-material/SendSharp'
 
 const Container = styled.div``
 
@@ -29,6 +31,7 @@ const Input = styled.input`
 `
 
 const Comments = ({ videoId }) => {
+  const [newComment, setNewComment] = useState('')
   const { currentUser } = useSelector((state) => state.user)
   const [comments, setComments] = useState([])
   useEffect(() => {
@@ -41,16 +44,31 @@ const Comments = ({ videoId }) => {
     fetchComments()
   }, [videoId])
 
+  const handleSubmit = async () => {
+    const res = await axios.post('/comments', {
+      userId: currentUser._id,
+      videoId: videoId,
+      desc: newComment,
+    })
+  }
+
   return (
-    <Container>
-      <NewComment>
-        <Avatar src={currentUser.img} />
-        <Input placeholder='Add a comment...' />
-      </NewComment>
-      {comments.map((comment) => (
-        <Comment key={comment._id} comment={comment} />
-      ))}
-    </Container>
+    <>
+      <Container>
+        <NewComment>
+          <Avatar src={currentUser.img} />
+          <Input
+            placeholder='Add a comment...'
+            onChange={(e) => setNewComment(e.target.value)}
+          />
+          <SendSharpIcon style={{ color: 'white' }} onClick={handleSubmit} />
+        </NewComment>
+
+        {comments.map((comment) => (
+          <Comment key={comment._id} comment={comment} />
+        ))}
+      </Container>
+    </>
   )
 }
 
