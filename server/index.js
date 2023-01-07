@@ -9,6 +9,9 @@ import commentRoutes from './routes/comments.js'
 import cookieParser from 'cookie-parser'
 
 dotenv.config()
+
+const port = process.env.PORT || 8800
+
 const app = express()
 
 const connect = () => {
@@ -41,7 +44,7 @@ app.use((err, req, res, next) => {
     message,
   })
 })
-app.listen(8800, () => {
+app.listen(port, () => {
   connect()
   console.log('Connected')
 })
