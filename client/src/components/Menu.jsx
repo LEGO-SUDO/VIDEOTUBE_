@@ -21,6 +21,9 @@ import { Link } from 'react-router-dom'
 import { logOut } from '../redux/userSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
+import { Switch } from '@mui/material'
+import LightModeIcon from '@mui/icons-material/LightMode'
+import DarkModeIcon from '@mui/icons-material/DarkMode'
 
 const Container = styled.div`
   flex: 1;
@@ -52,7 +55,6 @@ const Item = styled.div`
   gap: 20px;
   cursor: pointer;
   padding: 7.5px 0px;
-
   &:hover {
     background-color: ${({ theme }) => theme.soft};
   }
@@ -84,7 +86,6 @@ const Title = styled.h2`
   color: #aaaaaa;
   margin-bottom: 20px;
 `
-
 const Menu = ({ darkMode, setDarkMode }) => {
   const { currentUser } = useSelector((state) => state.user)
   const dispatch = useDispatch()
@@ -94,6 +95,14 @@ const Menu = ({ darkMode, setDarkMode }) => {
     e.preventDefault()
     dispatch(logOut())
     navigate('/')
+  }
+
+  const setTheme = () => {
+    if (darkMode) {
+      setDarkMode(false)
+    } else {
+      setDarkMode(true)
+    }
   }
 
   return (
@@ -126,6 +135,11 @@ const Menu = ({ darkMode, setDarkMode }) => {
             Subscriptions
           </Item>
         </Link>
+        <Item>
+          <LightModeIcon />
+          <Switch defaultChecked={darkMode} onChange={setTheme} />
+          <DarkModeIcon />
+        </Item>
         <Hr />
         <Item>
           <VideoLibraryOutlinedIcon />
@@ -189,10 +203,6 @@ const Menu = ({ darkMode, setDarkMode }) => {
         <Item>
           <HelpOutlineOutlinedIcon />
           Help
-        </Item>
-        <Item onClick={() => setDarkMode(!darkMode)}>
-          <SettingsBrightnessOutlinedIcon />
-          {darkMode ? 'Light' : 'Dark'} Mode
         </Item>
       </Wrapper>
     </Container>

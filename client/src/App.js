@@ -28,7 +28,7 @@ function App() {
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <Container>
         <BrowserRouter>
-          <Menu darkMode={darkMode} setDarkMode={setDarkMode} />
+          <Menu setDarkMode={setDarkMode} darkMode={darkMode} />
           <Main>
             <Navbar />
             <Wrapper>
