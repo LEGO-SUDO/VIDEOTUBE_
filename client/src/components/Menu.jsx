@@ -136,9 +136,8 @@ const Menu = ({ darkMode, setDarkMode }) => {
           </Item>
         </Link>
         <Item>
-          <LightModeIcon />
-          <Switch defaultChecked={darkMode} onChange={setTheme} />
           <DarkModeIcon />
+          <Switch defaultChecked={darkMode} onChange={setTheme} />
         </Item>
         <Hr />
         <Item>
