@@ -5,14 +5,25 @@ import authRoutes from './routes/auth.js'
 import userRoutes from './routes/users.js'
 import videoRoutes from './routes/videos.js'
 import commentRoutes from './routes/comments.js'
-
+//import cookieSession from 'cookie-session'
 import cookieParser from 'cookie-parser'
+import session from 'express-session'
+import cookieSession from 'cookie-session'
 
 dotenv.config()
 
 const port = process.env.PORT || 8800
 
 const app = express()
+
+var sess = {
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true, sameSite: 'none' },
+}
+
+app.use(session(sess))
 
 const connect = () => {
   mongoose
@@ -28,7 +39,18 @@ const connect = () => {
       throw err
     })
 }
+
+// app.use(
+//   cookieSession({
+//     keys: ['abcd'],
+//     secure: true,
+//     httpOnly: true,
+//     sameSite: 'none',
+//   })
+// )
+
 app.use(cookieParser())
+
 app.use(express.json())
 app.use('/api/auth', authRoutes)
 app.use('/api/users', userRoutes)
