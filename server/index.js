@@ -7,23 +7,25 @@ import videoRoutes from './routes/videos.js'
 import commentRoutes from './routes/comments.js'
 //import cookieSession from 'cookie-session'
 import cookieParser from 'cookie-parser'
-import session from 'express-session'
-import cookieSession from 'cookie-session'
-
+//import session from 'express-session'
+//import cookieSession from 'cookie-session'
+import favicon from 'serve-favicon'
+import path from 'path'
 dotenv.config()
 
 const port = process.env.PORT || 8800
 
 const app = express()
 
-var sess = {
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true, sameSite: 'none' },
-}
-
-app.use(session(sess))
+app.use(
+  favicon(
+    path.join(
+      '/Users/nakulsingh/Desktop/PROJECTS/YT-CLONE/client',
+      'public',
+      'favicon.ico'
+    )
+  )
+)
 
 const connect = () => {
   mongoose
